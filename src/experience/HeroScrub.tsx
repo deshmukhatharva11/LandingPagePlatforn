@@ -23,7 +23,6 @@ export default function HeroScrub({ onComplete }: { onComplete: () => void }) {
 
   const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
   const videoSrc = isMobile ? '/videos/MRTraders-Mobile.mp4' : '/videos/MRTraders-Desktop.mp4';
-  const posterSrc = '/assets/images/poster-image.jpg';
 
   useEffect(() => {
     let lastP = 0;
@@ -108,13 +107,7 @@ export default function HeroScrub({ onComplete }: { onComplete: () => void }) {
   return (
     <div className="dp-exp">
       <div className="dp-exp__viewport">
-        {/* Poster shows instantly; video fades in once playing */}
-        <img
-          src={posterSrc}
-          alt=""
-          aria-hidden="true"
-          className="dp-exp__canvas dp-vid__video"
-        />
+        {/* Video background */}
         <video
           ref={videoRef}
           className="dp-exp__canvas dp-vid__video dp-vid__autoplay"
