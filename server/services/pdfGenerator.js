@@ -48,6 +48,12 @@ export function generateInvoiceHTML(data) {
   const qrImg = getBase64Image('qr_code.png');
   const sigImg = getBase64Image('signature.png');
 
+  // SVG Background Data URIs (Rendered as <img> elements so browsers NEVER strip them in PDF print)
+  const goldBg = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="100"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#c59b27"/><stop offset="100%" stop-color="#d4af37"/></linearGradient></defs><rect width="1000" height="100" rx="2" fill="url(#g)"/></svg>');
+  const blackBg = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="100"><rect width="1000" height="100" fill="#1c1c1c"/></svg>');
+  const grayBg = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="100"><rect width="1000" height="100" fill="#eeeeee"/></svg>');
+
+
   const c = data.customer || {};
   const items = data.items || [];
 
@@ -552,9 +558,10 @@ export function generateInvoiceHTML(data) {
     <div class="main-body">
       <!-- Gold Meta Bar -->
       <div class="gold-meta-bar-wrap">
-        <div class="gold-meta-bar" style="background:#d4af37 !important; box-shadow: inset 0 0 0 1000px #d4af37 !important; -webkit-print-color-adjust:exact !important; color:#000000 !important;">
-          <div><span class="lbl">Invoice No: </span><span class="val">${data.invoice_number || ''}</span></div>
-          <div><span class="lbl">Date: </span><span class="val">${fmtDate(data.created_at)}</span></div>
+        <div class="gold-meta-bar" style="position:relative; overflow:hidden; border-radius:2px; padding:6px 22px; display:flex; align-items:center; justify-content:space-between; width:420px; color:#000000;">
+          <img src="${goldBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+          <div style="position:relative; z-index:2;"><span class="lbl">Invoice No: </span><span class="val">${data.invoice_number || ''}</span></div>
+          <div style="position:relative; z-index:2;"><span class="lbl">Date: </span><span class="val">${fmtDate(data.created_at)}</span></div>
         </div>
       </div>
 
@@ -580,13 +587,34 @@ export function generateInvoiceHTML(data) {
         <table class="inv-table">
           <thead>
             <tr>
-              <th style="width:36px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">SR<br>NO</th>
-              <th style="background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">DESCRIPTION</th>
-              <th style="width:45px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">QTY</th>
-              <th style="width:55px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">SQ.FT.</th>
-              <th style="width:55px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">UNITS</th>
-              <th style="width:75px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">RATE</th>
-              <th style="width:85px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">AMT</th>
+              <th style="width:36px; position:relative; overflow:hidden; padding:6px 5px; color:#ffffff; font-weight:700; text-align:center; border:1px solid #1c1c1c;">
+                <img src="${blackBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">SR<br>NO</span>
+              </th>
+              <th style="position:relative; overflow:hidden; padding:6px 5px; color:#ffffff; font-weight:700; text-align:center; border:1px solid #1c1c1c;">
+                <img src="${blackBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">DESCRIPTION</span>
+              </th>
+              <th style="width:45px; position:relative; overflow:hidden; padding:6px 5px; color:#ffffff; font-weight:700; text-align:center; border:1px solid #1c1c1c;">
+                <img src="${blackBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">QTY</span>
+              </th>
+              <th style="width:55px; position:relative; overflow:hidden; padding:6px 5px; color:#ffffff; font-weight:700; text-align:center; border:1px solid #1c1c1c;">
+                <img src="${blackBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">SQ.FT.</span>
+              </th>
+              <th style="width:55px; position:relative; overflow:hidden; padding:6px 5px; color:#ffffff; font-weight:700; text-align:center; border:1px solid #1c1c1c;">
+                <img src="${blackBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">UNITS</span>
+              </th>
+              <th style="width:75px; position:relative; overflow:hidden; padding:6px 5px; color:#ffffff; font-weight:700; text-align:center; border:1px solid #1c1c1c;">
+                <img src="${blackBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">RATE</span>
+              </th>
+              <th style="width:85px; position:relative; overflow:hidden; padding:6px 5px; color:#ffffff; font-weight:700; text-align:center; border:1px solid #1c1c1c;">
+                <img src="${blackBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">AMT</span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -605,8 +633,14 @@ export function generateInvoiceHTML(data) {
               </tr>
             `).join('')}
             <tr class="subtotal-row">
-              <td colspan="6" class="tc fb">SUB TOTAL</td>
-              <td class="tr fb">₹ ${fmt(data.subtotal)}</td>
+              <td colspan="6" class="tc fb" style="position:relative; overflow:hidden; padding:6px 5px; font-weight:700;">
+                <img src="${grayBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">SUB TOTAL</span>
+              </td>
+              <td class="tr fb" style="position:relative; overflow:hidden; padding:6px 5px; font-weight:700;">
+                <img src="${grayBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">₹ ${fmt(data.subtotal)}</span>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -635,7 +669,16 @@ export function generateInvoiceHTML(data) {
               <tr><td>Disc.</td><td class="val-col">${data.discount_amount > 0 ? `₹ ${fmt(data.discount_amount)}` : '-'}</td></tr>
               <tr><td>Transport / Hamali</td><td class="val-col">${data.transport_hamali > 0 ? `₹ ${fmt(data.transport_hamali)}` : '-'}</td></tr>
               <tr><td>GST (${data.gst_percentage || 18}%)</td><td class="val-col">${data.gst_amount > 0 ? `₹ ${fmt(data.gst_amount)}` : '-'}</td></tr>
-              <tr class="net-row" style="background:#d4af37 !important; box-shadow: inset 0 0 0 1000px #d4af37 !important; -webkit-print-color-adjust:exact !important;"><td>Net Total</td><td class="val-col">₹ ${fmt(data.grand_total)}</td></tr>
+              <tr class="net-row" style="position:relative; overflow:hidden; font-weight:800; font-size:12.5px;">
+              <td style="position:relative; overflow:hidden; padding:5px 8px; font-weight:800; color:#000;">
+                <img src="${goldBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">Net Total</span>
+              </td>
+              <td class="val-col" style="position:relative; overflow:hidden; padding:5px 8px; font-weight:800; color:#000; text-align:right;">
+                <img src="${goldBg}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; object-fit:fill;" />
+                <span style="position:relative; z-index:2;">₹ ${fmt(data.grand_total)}</span>
+              </td>
+            </tr>
             </table>
             <div class="words-block">
               <div class="words-label">Total Amt ( In Words )</div>
