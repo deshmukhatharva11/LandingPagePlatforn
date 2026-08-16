@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet, useLocation, Navigate } from 'react-router-dom';
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
@@ -18,11 +18,13 @@ import ScrollToTop from './components/ScrollToTop';
 import SEO from './components/SEO';
 import Breadcrumbs from './components/Breadcrumbs';
 import FAQ from './components/FAQ';
+import './pages/App/app.css';
 
 // Lazy-loaded routes
 const JourneyExperience = lazy(() => import('./discover/JourneyExperience'));
 const ProjectDetail = lazy(() => import('./components/Projects/ProjectDetail'));
 const ChatWidget = lazy(() => import('./components/ChatWidget'));
+const AppShell = lazy(() => import('./pages/App/index'));
 
 function HomePage() {
   return (
@@ -66,6 +68,12 @@ function SiteLayout() {
   );
 }
 
+function ConditionalChatWidget() {
+  const location = useLocation();
+  if (location.pathname.startsWith('/app')) return null;
+  return <ChatWidget />;
+}
+
 export default function App() {
   return (
     <HelmetProvider>
@@ -82,8 +90,18 @@ export default function App() {
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/project/:id" element={<ProjectDetail />} />
             </Route>
+            {/* Direct Aliases for App Routes */}
+            <Route path="/login" element={<Navigate to="/app/login" replace />} />
+            <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />
+            <Route path="/invoices" element={<Navigate to="/app/invoices" replace />} />
+            <Route path="/invoices/*" element={<Navigate to="/app/invoices" replace />} />
+            <Route path="/products" element={<Navigate to="/app/products" replace />} />
+            <Route path="/users" element={<Navigate to="/app/users" replace />} />
+            <Route path="/audit" element={<Navigate to="/app/audit" replace />} />
+            {/* Business App Module */}
+            <Route path="/app/*" element={<AppShell />} />
           </Routes>
-          <ChatWidget />
+          <ConditionalChatWidget />
         </Suspense>
       </Router>
     </HelmetProvider>
