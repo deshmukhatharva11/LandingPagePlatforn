@@ -1,4 +1,3 @@
-import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -37,19 +36,8 @@ const TERMS = [
   '07. Transportation charges are added above , Mention as extra.',
 ];
 
-let browserInstance = null;
 
-async function getBrowser() {
-  if (!browserInstance || !browserInstance.connected) {
-    browserInstance = await puppeteer.launch({
-      headless: 'new',
-      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
-    });
-  }
-  return browserInstance;
-}
-
-export async function generateInvoicePDF(data) {
+export function generateInvoiceHTML(data) {
   const img1 = getBase64Image('image1.jpeg');
   const img2 = getBase64Image('image2.png');
   const img3 = getBase64Image('image3.png');
@@ -639,18 +627,5 @@ export async function generateInvoicePDF(data) {
 </html>
   `;
 
-  const browser = await getBrowser();
-  const page = await browser.newPage();
-  try {
-    await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
-    const pdfBuffer = await page.pdf({
-      format: 'A4',
-      printBackground: true,
-      margin: { top: '0px', right: '0px', bottom: '0px', left: '0px' },
-      preferCSSPageSize: true
-    });
-    return pdfBuffer;
-  } finally {
-    await page.close();
-  }
+  return htmlContent;
 }

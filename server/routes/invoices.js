@@ -7,7 +7,7 @@ import { authMiddleware } from '../middleware/auth.js';
 import { requirePermission, checkOwnership, createAuditLog, getSettingBool } from '../middleware/permissions.js';
 import { calculateInvoice } from '../services/invoiceCalculator.js';
 import { generateInvoiceNumber } from '../services/invoiceNumbering.js';
-import { generateInvoicePDF } from '../services/pdfGenerator.js';
+import { generateInvoiceHTML } from '../services/pdfGenerator.js';
 
 const router = express.Router();
 router.use(authMiddleware);
@@ -112,7 +112,7 @@ router.get('/:id/pdf', async (req, res) => {
     const items = db.prepare('SELECT * FROM invoice_items WHERE invoice_id = ? ORDER BY sort_order').all(req.params.id);
     const parsed = { ...invoice, customer: JSON.parse(invoice.customer_snapshot), items };
 
-    const pdfBuffer = await generateInvoicePDF(parsed);
+    const htmlContent = generateInvoiceHTML(parsed);
 
     // Log PDF download
     createAuditLog(req, {
@@ -123,10 +123,8 @@ router.get('/:id/pdf', async (req, res) => {
       details: { invoice_number: invoice.invoice_number },
     });
 
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="${parsed.invoice_number}.pdf"`);
-    res.setHeader('Content-Length', pdfBuffer.length);
-    res.send(pdfBuffer);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(htmlContent);
   } catch (err) {
     console.error('PDF Generation Error:', err);
     res.status(500).json({ success: false, message: 'Failed to generate PDF. Please try again.' });
