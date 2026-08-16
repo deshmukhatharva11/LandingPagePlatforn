@@ -23,6 +23,7 @@ export async function downloadInvoicePDF(
 
     printWindow.document.open();
     printWindow.document.write(htmlContent);
+    printWindow.document.title = filename;
     printWindow.document.close();
 
     setTimeout(() => {

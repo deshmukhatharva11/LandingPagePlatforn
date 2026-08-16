@@ -57,9 +57,26 @@ export function generateInvoiceHTML(data) {
 <html>
 <head>
   <meta charset="utf-8">
+  <title>${data.invoice_number || "Invoice"}</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    @page { size: A4; margin: 0; }
+    @page { size: A4 portrait; margin: 0; }
+    @media print {
+      @page { size: A4 portrait; margin: 0; }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      html, body {
+        width: 210mm !important;
+        min-height: 297mm !important;
+        background: #ffffff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
     @media print {
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
