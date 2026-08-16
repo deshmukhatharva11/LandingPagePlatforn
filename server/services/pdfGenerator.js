@@ -60,6 +60,11 @@ export function generateInvoiceHTML(data) {
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     @page { size: A4; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+      html, body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {

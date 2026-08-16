@@ -17,7 +17,7 @@ export async function downloadInvoicePDF(
 
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
-      alert('Please allow pop-ups for this website to download/print the PDF.');
+      alert('Please allow pop-ups for this website to view/print the invoice PDF.');
       return;
     }
 
@@ -25,11 +25,12 @@ export async function downloadInvoicePDF(
     printWindow.document.write(htmlContent);
     printWindow.document.close();
 
-    printWindow.onload = () => {
-      setTimeout(() => {
+    setTimeout(() => {
+      try {
+        printWindow.focus();
         printWindow.print();
-      }, 300);
-    };
+      } catch (e) { console.error(e); }
+    }, 400);
   } catch (err: any) {
     console.error('PDF Error:', err);
     alert(err?.message || 'Failed to prepare PDF. Please try again.');
