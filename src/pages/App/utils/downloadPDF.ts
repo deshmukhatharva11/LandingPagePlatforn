@@ -11,28 +11,54 @@ export async function downloadInvoicePDF(
   try {
     const response = await client.get('/invoices/' + invoiceId + '/pdf', {
       responseType: 'text',
-      transformResponse: [(data) => data]
+      transformResponse: [(data: string) => data]
     });
 
-    const htmlContent = response.data;
+    const htmlContent = response.data as string;
     if (!htmlContent || typeof htmlContent !== 'string' || !htmlContent.includes('<!DOCTYPE html>')) {
       throw new Error('Invalid PDF template response');
     }
 
-    // Create container positioned on document body so html2canvas renders full content
+    // Parse the full HTML document properly
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+
+    // Create container that will hold styles + body content
     const container = document.createElement('div');
+    container.id = 'pdf-render-container';
     container.style.position = 'absolute';
     container.style.top = '0';
     container.style.left = '0';
-    container.style.width = '210mm';
-    container.style.zIndex = '999999';
+    container.style.width = '794px'; // A4 width at 96dpi
     container.style.background = '#ffffff';
-    container.innerHTML = htmlContent;
+    container.style.zIndex = '999999';
+
+    // 1. Copy all <link> tags (Google Fonts etc.)
+    const links = doc.querySelectorAll('link[rel="stylesheet"]');
+    links.forEach((link) => {
+      const cloned = document.createElement('link');
+      cloned.rel = 'stylesheet';
+      cloned.href = link.getAttribute('href') || '';
+      container.appendChild(cloned);
+    });
+
+    // 2. Copy all <style> tags (your entire CSS)
+    const styles = doc.querySelectorAll('style');
+    styles.forEach((style) => {
+      const cloned = document.createElement('style');
+      cloned.textContent = style.textContent;
+      container.appendChild(cloned);
+    });
+
+    // 3. Copy body innerHTML (your template content with base64 images)
+    const bodyDiv = document.createElement('div');
+    bodyDiv.innerHTML = doc.body.innerHTML;
+    container.appendChild(bodyDiv);
 
     document.body.appendChild(container);
 
-    // Give DOM 300ms to render images & fonts
-    await new Promise(resolve => setTimeout(resolve, 300));
+    // Wait for Google Fonts + base64 images to render
+    await new Promise(resolve => setTimeout(resolve, 800));
 
     const opt = {
       margin: 0,
@@ -43,9 +69,10 @@ export async function downloadInvoicePDF(
         useCORS: true,
         allowTaint: true,
         scrollX: 0,
-        scrollY: 0
+        scrollY: 0,
+        windowWidth: 794,
       },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const }
     };
 
     try {
