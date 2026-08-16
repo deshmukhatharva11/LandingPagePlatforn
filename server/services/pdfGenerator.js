@@ -36,7 +36,6 @@ const TERMS = [
   '07. Transportation charges are added above , Mention as extra.',
 ];
 
-
 export function generateInvoiceHTML(data) {
   const img1 = getBase64Image('image1.jpeg');
   const img2 = getBase64Image('image2.png');
@@ -52,37 +51,22 @@ export function generateInvoiceHTML(data) {
   const c = data.customer || {};
   const items = data.items || [];
 
-  const htmlContent = `
-<!DOCTYPE html>
+  const htmlContent = `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <title>${data.invoice_number || "Invoice"}</title>
+  <title>${data.invoice_number || 'Invoice'}</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     @page { size: A4 portrait; margin: 0; }
-    @media print {
-      @page { size: A4 portrait; margin: 0; }
-      * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-      }
-      html, body {
-        width: 210mm !important;
-        min-height: 297mm !important;
-        background: #ffffff !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-      }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
-    @media print {
-      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
-      html, body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       width: 210mm;
@@ -93,17 +77,27 @@ export function generateInvoiceHTML(data) {
       font-size: 11px;
       line-height: 1.35;
       position: relative;
-      padding-bottom: 85px;
+      margin: 0 auto;
+      padding: 0;
+      overflow: hidden;
     }
 
-    /* ─── HEADER (Increased Image1.jpeg Height ONLY) ─── */
+    .page-container {
+      width: 210mm;
+      min-height: 297mm;
+      position: relative;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ─── HEADER ─── */
     .header {
-      position: fixed;
-      top: 0;
-      left: 0;
+      position: relative;
       width: 100%;
       height: 215px;
-      z-index: 100;
+      overflow: hidden;
     }
     .header-bg {
       position: absolute;
@@ -114,7 +108,6 @@ export function generateInvoiceHTML(data) {
       z-index: 1;
     }
     
-    /* GSTIN inside top upper golden part of PDF */
     .gstin-top-strip {
       position: absolute;
       top: 8px;
@@ -138,7 +131,6 @@ export function generateInvoiceHTML(data) {
       height: 100%;
     }
 
-    /* Logo shifted up and made bigger */
     .logo-area {
       flex-shrink: 0;
       width: 260px;
@@ -150,12 +142,12 @@ export function generateInvoiceHTML(data) {
       margin-top: -55px;
     }
     .logo-area img {
+      width: 100%;
       height: 140px;
       max-width: 220px;
       object-fit: contain;
     }
 
-    /* Company info — right side with Playfair Display serif font */
     .company-area {
       flex: 1;
       display: flex;
@@ -186,7 +178,6 @@ export function generateInvoiceHTML(data) {
       text-align: right;
     }
 
-    /* Contacts — stacked line-by-line under company tagline */
     .contacts-stack {
       display: flex;
       flex-direction: column;
@@ -213,17 +204,25 @@ export function generateInvoiceHTML(data) {
       text-decoration: underline;
     }
 
+    /* ─── MAIN CONTENT ─── */
+    .main-body {
+      flex: 1;
+      padding: 0;
+    }
+
     /* ─── GOLD META BAR ─── */
     .gold-meta-bar-wrap {
       display: flex;
       justify-content: flex-end;
       padding-right: 28px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+      margin-top: 5px;
+      margin-bottom: 8px;
     }
     .gold-meta-bar {
-      background: linear-gradient(90deg, #c59b27 0%, #d4af37 100%);
-      color: #000000;
+      background: linear-gradient(90deg, #c59b27 0%, #d4af37 100%) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color: #000000 !important;
       font-family: 'Poppins', sans-serif;
       font-size: 13px;
       font-weight: 600;
@@ -243,7 +242,6 @@ export function generateInvoiceHTML(data) {
       padding: 4px 28px 4px;
     }
 
-    /* Bill-to grid */
     .bill-grid {
       display: flex;
       gap: 20px;
@@ -281,8 +279,10 @@ export function generateInvoiceHTML(data) {
       font-size: 11px;
     }
     table.inv-table th {
-      background: #1c1c1c;
-      color: #fff;
+      background: #1c1c1c !important;
+      color: #fff !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
       padding: 6px 5px;
       text-align: center;
       font-weight: 700;
@@ -303,13 +303,15 @@ export function generateInvoiceHTML(data) {
 
     .subtotal-row td {
       background: #eee !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
       font-weight: 700;
       font-size: 11.5px;
       padding: 6px 5px;
     }
 
     /* ─── BOTTOM ─── */
-    .bottom { padding: 6px 28px; page-break-inside: avoid; }
+    .bottom { padding: 6px 28px; }
     .bottom-grid {
       display: flex;
       gap: 20px;
@@ -317,7 +319,6 @@ export function generateInvoiceHTML(data) {
       margin-bottom: 8px;
     }
 
-    /* Payment */
     .pay-box { width: 46%; font-size: 11px; }
     .pay-title { font-weight: 700; margin-bottom: 2px; font-size: 11.5px; }
     .upi-label { font-size: 10px; color: #444; }
@@ -330,89 +331,116 @@ export function generateInvoiceHTML(data) {
     }
     .qr-row { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
     .qr-img {
-      width: 105px; height: 105px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border: 1px solid #eee;
     }
-    .badges { display: flex; flex-direction: column; gap: 5px; }
+    .badges { display: flex; flex-direction: column; gap: 4px; }
     .badge {
-      border: 1.5px solid #ccc;
-      border-radius: 14px;
-      padding: 3px 12px;
+      display: inline-block;
+      padding: 2px 14px;
+      border-radius: 12px;
       font-size: 10px;
       font-weight: 700;
       text-align: center;
-      background: #fff;
+      border: 1.5px solid;
     }
-    .badge-pp { color: #5f259f; border-color: #5f259f; }
-    .badge-upi { color: #0088cc; border-color: #0088cc; }
-    .badge-gp { color: #4285f4; border-color: #4285f4; }
+    .badge-pp { color: #5f259f; border-color: #5f259f; background: #fff; }
+    .badge-upi { color: #0078d4; border-color: #0078d4; background: #fff; }
+    .badge-gp { color: #1a73e8; border-color: #1a73e8; background: #fff; }
 
-    /* Totals */
-    .totals-box { width: 54%; }
-    table.tot-table { width: 100%; border-collapse: collapse; font-size: 11px; }
-    table.tot-table td { padding: 4px 8px; border-bottom: 1px solid #ddd; }
-    table.tot-table .label-col { width: 55%; }
-    table.tot-table .val-col { text-align: right; font-weight: 700; }
-    .net-row td {
-      background: #1c1c1c !important;
-      color: #d4af37;
-      font-size: 13px;
-      font-weight: 700;
-      border-bottom: none;
-      padding: 6px 8px;
+    .totals-box { width: 48%; margin-left: auto; }
+    table.tot-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
     }
+    table.tot-table td {
+      padding: 3px 0;
+      border: none;
+    }
+    table.tot-table .label-col { font-weight: 700; }
+    table.tot-table .val-col { text-align: right; font-weight: 700; }
+    table.tot-table .net-row td {
+      background: linear-gradient(90deg, #c59b27 0%, #d4af37 100%) !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color: #000000 !important;
+      font-weight: 800;
+      font-size: 12.5px;
+      padding: 5px 8px;
+    }
+
     .words-block {
       text-align: center;
-      margin-top: 5px;
+      margin-top: 6px;
       font-size: 10.5px;
     }
-    .words-label { font-weight: 700; }
-    .words-text { font-style: italic; color: #333; }
+    .words-label { font-weight: 700; font-size: 11px; }
+    .words-text { font-style: italic; color: #333; font-size: 10.5px; }
 
-    /* ─── TERMS ─── */
     .terms-section {
-      margin-top: 6px;
-      border-top: 1.5px solid #ddd;
-      padding-top: 5px;
+      margin-top: 4px;
+      margin-bottom: 6px;
     }
     .terms-heading {
-      text-align: center;
       font-weight: 700;
-      font-size: 11.5px;
       text-decoration: underline;
+      font-size: 11px;
       margin-bottom: 3px;
-      text-transform: uppercase;
+      text-align: center;
     }
     .terms-body {
-      font-size: 9.5px;
+      font-size: 8.5px;
       line-height: 1.35;
       color: #222;
     }
-    .term-line { margin-bottom: 1px; }
+    .term-line { margin-bottom: 1.5px; }
 
-    /* ─── SIGNATURE ─── */
-    .sig-wrap { display: flex; justify-content: flex-end; margin-top: 8px; }
-    .sig-block { text-align: center; width: 220px; }
-    .sig-label { font-size: 10.5px; font-weight: 700; margin-bottom: 2px; }
-    .sig-img { height: 42px; object-fit: contain; margin: 1px 0; }
-    .sig-name { font-size: 11.5px; font-weight: 700; letter-spacing: 2px; }
+    .sig-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+      margin-bottom: 4px;
+    }
+    .sig-block {
+      text-align: center;
+      width: 220px;
+    }
+    .sig-label {
+      font-weight: 700;
+      font-size: 10.5px;
+      color: #111;
+      margin-bottom: 2px;
+    }
+    .sig-img {
+      height: 35px;
+      max-width: 140px;
+      object-fit: contain;
+      margin: 2px auto;
+      display: block;
+    }
+    .sig-name {
+      font-weight: 800;
+      font-size: 11.5px;
+      color: #111;
+      letter-spacing: 0.5px;
+    }
 
-    /* ─── FOOTER (Matching User Reference Image Exactly) ─── */
+    /* ─── FOOTER ─── */
     .footer {
-      position: fixed;
-      bottom: 0; left: 0;
+      position: relative;
       width: 100%;
-      height: 85px;
-      z-index: 100;
-      background: white;
+      height: 95px;
+      overflow: hidden;
+      margin-top: auto;
     }
     .footer-bg {
       position: absolute;
       bottom: 0; left: 0;
       width: 100%;
-      height: 85px;
+      height: 95px;
       object-fit: fill;
       z-index: 1;
     }
@@ -420,234 +448,215 @@ export function generateInvoiceHTML(data) {
       position: relative;
       z-index: 2;
       display: flex;
-      align-items: flex-start;
-      gap: 35px;
-      padding: 16px 25px 5px 25px;
+      align-items: flex-end;
+      padding: 0 28px 12px 28px;
+      height: 100%;
+      justify-content: flex-start;
+      gap: 30px;
     }
-    
     .footer-address-wrap {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 8px;
-      font-size: 11px;
-      color: #111111;
-      font-weight: 500;
-      line-height: 1.35;
-    }
-    .footer-pin {
-      width: 18px;
-      height: 18px;
-      object-fit: contain;
-      flex-shrink: 0;
-      margin-top: 1px;
+      font-size: 10.5px;
+      color: #1a1a1a;
+      line-height: 1.25;
+      max-width: 280px;
     }
     .footer-address-lines {
-      display: flex;
-      flex-direction: column;
-      color: #111111;
+      font-family: 'Poppins', sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #111;
     }
-
+    .footer-address-wrap img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
     .footer-phone-wrap {
       display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 12.5px;
+      gap: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
       font-weight: 700;
-      color: #111111;
-      padding-top: 2px;
+      color: #111;
     }
-    .footer-phone-icon {
-      width: 22px;
-      height: 22px;
+    .footer-phone-wrap img {
+      width: 18px;
+      height: 18px;
       object-fit: contain;
       flex-shrink: 0;
     }
   </style>
 </head>
 <body>
-
-  <!-- ═══ HEADER ═══ -->
-  <div class="header">
-    ${img1 ? `<img src="${img1}" class="header-bg" />` : ''}
-    <div class="gstin-top-strip">GSTIN- 27AGHPV7718B2Z5</div>
-    
-    <div class="header-inner">
-      <div class="logo-area">
-        ${img2 ? `<img src="${img2}" />` : ''}
-      </div>
-      <div class="company-area">
-        <div class="company-name">MR TRADERS INTERIOR</div>
-        <div class="company-tagline">DESIGNING &amp; FURNITURE</div>
-        <div class="contacts-stack">
-          <div class="contact-item email">
-            ${img3 ? `<img src="${img3}" />` : '✉'}
-            <a href="mailto:mrtradersofficial01@gmail.com">mrtradersofficial01@gmail.com</a>
-          </div>
-          <div class="contact-item">
-            ${img4 ? `<img src="${img4}" />` : '📷'}
-            <span>@mr_interiors.1</span>
-          </div>
-          <div class="contact-item">
-            ${img5 ? `<img src="${img5}" />` : '📞'}
-            <span>9028953853</span>
+  <div class="page-container">
+    <!-- ═══ 1. HEADER AT TOP ═══ -->
+    <div class="header">
+      ${img1 ? `<img src="${img1}" class="header-bg" />` : ''}
+      <div class="gstin-top-strip">GSTIN- 27AGHPV7718B2Z5</div>
+      <div class="header-inner">
+        <div class="logo-area">
+          ${img7 ? `<img src="${img7}" alt="MR TRADERS" />` : ''}
+        </div>
+        <div class="company-area">
+          <div class="company-name">MR TRADERS INTERIOR</div>
+          <div class="company-tagline">DESIGNING &amp; FURNITURE</div>
+          <div class="contacts-stack">
+            <div class="contact-item email">
+              ${img2 ? `<img src="${img2}" />` : ''}
+              <a href="mailto:mrtradersofficial01@gmail.com">mrtradersofficial01@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              ${img3 ? `<img src="${img3}" />` : ''}
+              <span>@mr__interiors .1</span>
+            </div>
+            <div class="contact-item">
+              ${img4 ? `<img src="${img4}" />` : ''}
+              <span>9028953853</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ═══ FOOTER ═══ -->
-  <div class="footer">
-    ${img6 ? `<img src="${img6}" class="footer-bg" />` : ''}
-    <div class="footer-inner">
-      <div class="footer-address-wrap">
-        ${img7 ? `<img src="${img7}" class="footer-pin" />` : ''}
-        <div class="footer-address-lines">
-          <div>MR Traders &amp; Factory Outlet,</div>
-          <div>Nilgiri Baug, Sambhaji Nagar Road,</div>
-          <div>Nandura Naka, Nashik-422003</div>
+    <!-- ═══ 2. MAIN CONTENT IN MIDDLE ═══ -->
+    <div class="main-body">
+      <!-- Gold Meta Bar -->
+      <div class="gold-meta-bar-wrap">
+        <div class="gold-meta-bar">
+          <div><span class="lbl">Invoice No: </span><span class="val">${data.invoice_number || ''}</span></div>
+          <div><span class="lbl">Date: </span><span class="val">${fmtDate(data.created_at)}</span></div>
         </div>
       </div>
-      <div class="footer-phone-wrap">
-        ${img8 ? `<img src="${img8}" class="footer-phone-icon" />` : ''}
-        <span>9028953854</span>
-      </div>
-    </div>
-  </div>
 
-  <table style="width: 100%; border: none; border-collapse: collapse; margin: 0; padding: 0;">
-    <thead>
-      <tr><td style="border: none; padding: 0; height: 215px;"></td></tr>
-    </thead>
-    <tbody>
-      <tr><td style="border: none; padding: 0;">
-
-  <!-- ═══ GOLD META BAR ═══ -->
-  <div class="gold-meta-bar-wrap">
-    <div class="gold-meta-bar">
-      <div><span class="lbl">Invoice No:</span> <span class="val">${data.invoice_number || ''}</span></div>
-      <div><span class="lbl">Date:</span> <span class="val">${fmtDate(data.invoice_date)}</span></div>
-    </div>
-  </div>
-
-  <!-- ═══ INVOICE INFO ═══ -->
-  <div class="info-section">
-    <div class="bill-grid">
-      <div class="bill-col">
-        <div class="bill-heading">Invoice to:</div>
-        <div class="bill-row"><span class="bill-lbl">Client Name:-</span><span class="bill-val">${c.name || ''}</span></div>
-        <div class="bill-row"><span class="bill-lbl">Address:-</span><span class="bill-val">${c.billing_address || c.city || ''}</span></div>
-        <div class="bill-row"><span class="bill-lbl">Email ID :-</span><span class="bill-val">${c.email || ''}</span></div>
-        ${c.gstin ? `<div class="bill-row"><span class="bill-lbl">GSTIN :-</span><span class="bill-val">${c.gstin}</span></div>` : ''}
-      </div>
-      <div class="bill-col" style="padding-top: 18px;">
-        <div class="bill-row"><span class="bill-lbl">Mo.No. :</span><span class="bill-val">${c.phone || ''}</span></div>
-        <div class="bill-row"><span class="bill-lbl">Ex. Name :</span><span class="bill-val">${data.created_by_name || 'Admin'}</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ ITEMS TABLE ═══ -->
-  <div class="table-wrap">
-    <table class="inv-table">
-      <thead>
-        <tr>
-          <th style="width:36px;">SR<br>NO</th>
-          <th>DESCRIPTION</th>
-          <th style="width:45px;">QTY</th>
-          <th style="width:55px;">SQ.FT.</th>
-          <th style="width:55px;">UNITS</th>
-          <th style="width:75px;">RATE</th>
-          <th style="width:85px;">AMT</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${items.map((item, idx) => `
-          <tr>
-            <td class="tc">${idx + 1}</td>
-            <td class="tl fb">
-              ${item.product_name}
-              ${item.product_sku ? `<br><span style="font-weight:normal;color:#666;font-size:9px;">${item.product_sku}</span>` : ''}
-            </td>
-            <td class="tc">${item.quantity}</td>
-            <td class="tc">${Number(item.quantity).toFixed(2)}</td>
-            <td class="tc">${item.unit || 'Sq.Ft.'}</td>
-            <td class="tr">₹ ${Number(item.unit_price).toLocaleString('en-IN')}</td>
-            <td class="tr fb">₹ ${fmt(item.line_amount)}</td>
-          </tr>
-        `).join('')}
-        <tr class="subtotal-row">
-          <td colspan="6" class="tc fb">SUB TOTAL</td>
-          <td class="tr fb">₹ ${fmt(data.subtotal)}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- ═══ BOTTOM ═══ -->
-  <div class="bottom">
-    <div class="bottom-grid">
-      <!-- Payment -->
-      <div class="pay-box">
-        <div class="pay-title">Payment QR Code :</div>
-        <div class="upi-label">UPI ID :</div>
-        <div class="upi-link">shridevi.vishvakarma83@kotak
-        </div>
-        <div class="qr-row">
-          ${qrImg ? `<img src="${qrImg}" class="qr-img" />` : ''}
-          <div class="badges">
-            <span class="badge badge-pp">PhonePe</span>
-            <span class="badge badge-upi">UPI</span>
-            <span class="badge badge-gp">G Pay</span>
+      <!-- Invoice Info -->
+      <div class="info-section">
+        <div class="bill-grid">
+          <div class="bill-col">
+            <div class="bill-heading">Invoice to:</div>
+            <div class="bill-row"><span class="bill-lbl">Client Name:-</span><span class="bill-val">${c.name || ''}</span></div>
+            <div class="bill-row"><span class="bill-lbl">Address:-</span><span class="bill-val">${c.address || ''}</span></div>
+            <div class="bill-row"><span class="bill-lbl">Email ID :-</span><span class="bill-val">${c.email || ''}</span></div>
+            ${c.gstin ? `<div class="bill-row"><span class="bill-lbl">GSTIN:-</span><span class="bill-val">${c.gstin}</span></div>` : ''}
+          </div>
+          <div class="bill-col" style="padding-top: 18px;">
+            <div class="bill-row"><span class="bill-lbl">Mo.No. :</span><span class="bill-val">${c.phone || ''}</span></div>
+            <div class="bill-row"><span class="bill-lbl">Ex. Name :</span><span class="bill-val">${data.created_by_name || 'Admin'}</span></div>
           </div>
         </div>
       </div>
 
-      <!-- Totals -->
-      <div class="totals-box">
-        <table class="tot-table">
-          <tr><td class="label-col">TOTAL AMT</td><td class="val-col">₹ ${fmt(data.subtotal)}</td></tr>
-          <tr><td>Disc.</td><td class="val-col">${data.discount_amount > 0 ? `₹ ${fmt(data.discount_amount)}` : '-'}</td></tr>
-          <tr><td>Transport / Hamali</td><td class="val-col">${data.transport_hamali > 0 ? `₹ ${fmt(data.transport_hamali)}` : '-'}</td></tr>
-          <tr><td>GST (${data.gst_percentage || 18}%)</td><td class="val-col">${data.gst_amount > 0 ? `₹ ${fmt(data.gst_amount)}` : '-'}</td></tr>
-          <tr class="net-row"><td>Net Total</td><td class="val-col">₹ ${fmt(data.grand_total)}</td></tr>
+      <!-- Items Table -->
+      <div class="table-wrap">
+        <table class="inv-table">
+          <thead>
+            <tr>
+              <th style="width:36px;">SR<br>NO</th>
+              <th>DESCRIPTION</th>
+              <th style="width:45px;">QTY</th>
+              <th style="width:55px;">SQ.FT.</th>
+              <th style="width:55px;">UNITS</th>
+              <th style="width:75px;">RATE</th>
+              <th style="width:85px;">AMT</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${items.map((item, idx) => `
+              <tr>
+                <td class="tc">${idx + 1}</td>
+                <td class="tl fb">
+                  ${item.product_name}
+                  ${item.product_sku ? `<br><span style="font-weight:normal;color:#666;font-size:9px;">${item.product_sku}</span>` : ''}
+                </td>
+                <td class="tc">${item.quantity}</td>
+                <td class="tc">${Number(item.quantity).toFixed(2)}</td>
+                <td class="tc">${item.unit || 'Sq.Ft.'}</td>
+                <td class="tr">₹ ${Number(item.unit_price).toLocaleString('en-IN')}</td>
+                <td class="tr fb">₹ ${fmt(item.line_amount)}</td>
+              </tr>
+            `).join('')}
+            <tr class="subtotal-row">
+              <td colspan="6" class="tc fb">SUB TOTAL</td>
+              <td class="tr fb">₹ ${fmt(data.subtotal)}</td>
+            </tr>
+          </tbody>
         </table>
-        <div class="words-block">
-          <div class="words-label">Total Amt ( In Words )</div>
-          <div class="words-text">${data.amount_in_words || 'Rupees Zero Only'}</div>
+      </div>
+
+      <!-- Bottom Grid -->
+      <div class="bottom">
+        <div class="bottom-grid">
+          <div class="pay-box">
+            <div class="pay-title">Payment QR Code :</div>
+            <div class="upi-label">UPI ID :</div>
+            <div class="upi-link">shridevi.vishvakarma83@kotak</div>
+            <div class="qr-row">
+              ${qrImg ? `<img src="${qrImg}" class="qr-img" />` : ''}
+              <div class="badges">
+                <span class="badge badge-pp">PhonePe</span>
+                <span class="badge badge-upi">UPI</span>
+                <span class="badge badge-gp">G Pay</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="totals-box">
+            <table class="tot-table">
+              <tr><td class="label-col">TOTAL AMT</td><td class="val-col">₹ ${fmt(data.subtotal)}</td></tr>
+              <tr><td>Disc.</td><td class="val-col">${data.discount_amount > 0 ? `₹ ${fmt(data.discount_amount)}` : '-'}</td></tr>
+              <tr><td>Transport / Hamali</td><td class="val-col">${data.transport_hamali > 0 ? `₹ ${fmt(data.transport_hamali)}` : '-'}</td></tr>
+              <tr><td>GST (${data.gst_percentage || 18}%)</td><td class="val-col">${data.gst_amount > 0 ? `₹ ${fmt(data.gst_amount)}` : '-'}</td></tr>
+              <tr class="net-row"><td>Net Total</td><td class="val-col">₹ ${fmt(data.grand_total)}</td></tr>
+            </table>
+            <div class="words-block">
+              <div class="words-label">Total Amt ( In Words )</div>
+              <div class="words-text">${data.amount_in_words || 'Rupees Zero Only'}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="terms-section">
+          <div class="terms-heading">TERMS &amp; CONDITION</div>
+          <div class="terms-body">
+            ${TERMS.map(t => `<div class="term-line">${t}</div>`).join('')}
+          </div>
+        </div>
+
+        <div class="sig-wrap">
+          <div class="sig-block">
+            <div class="sig-label">AUTHORISED SIGNATORY FOR</div>
+            ${sigImg ? `<img src="${sigImg}" class="sig-img" />` : ''}
+            <div class="sig-name">M.R. TRADERS</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Terms -->
-    <div class="terms-section">
-      <div class="terms-heading">TERMS &amp; CONDITION</div>
-      <div class="terms-body">
-        ${TERMS.map(t => `<div class="term-line">${t}</div>`).join('')}
-        ${data.notes ? `<div class="term-line" style="font-weight:700;margin-top:3px;">Note: ${data.notes}</div>` : ''}
-      </div>
-    </div>
-
-    <!-- Signature -->
-    <div class="sig-wrap">
-      <div class="sig-block">
-        <div class="sig-label">AUTHORISED SIGNATORY FOR</div>
-        ${sigImg ? `<img src="${sigImg}" class="sig-img" />` : '<div style="height:42px;"></div>'}
-        <div class="sig-name">M.R. TRADERS</div>
+    <!-- ═══ 3. FOOTER AT BOTTOM ═══ -->
+    <div class="footer">
+      ${img6 ? `<img src="${img6}" class="footer-bg" />` : ''}
+      <div class="footer-inner">
+        <div class="footer-address-wrap">
+          ${img8 ? `<img src="${img8}" />` : ''}
+          <div class="footer-address-lines">
+            MR Traders &amp; Factory Outlet,<br>
+            Nilgiri Baug, Sambhaji Nagar Road,<br>
+            Nandura Naka, Nashik-422003
+          </div>
+        </div>
+        <div class="footer-phone-wrap">
+          ${img5 ? `<img src="${img5}" />` : ''}
+          <span>9028953854</span>
+        </div>
       </div>
     </div>
   </div>
-
-      </td></tr>
-    </tbody>
-    <tfoot>
-      <tr><td style="border: none; padding: 0; height: 95px;"></td></tr>
-    </tfoot>
-  </table>
-
 </body>
-</html>
-  `;
+</html>`;
 
   return htmlContent;
 }
