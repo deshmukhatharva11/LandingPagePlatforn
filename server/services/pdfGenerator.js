@@ -219,6 +219,12 @@ export function generateInvoiceHTML(data) {
       margin-bottom: 8px;
     }
     .gold-meta-bar {
+      background: #d4af37 !important;
+      background: linear-gradient(90deg, #c59b27 0%, #d4af37 100%) !important;
+      box-shadow: inset 0 0 0 1000px #d4af37 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
       background: linear-gradient(90deg, #c59b27 0%, #d4af37 100%) !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
@@ -280,6 +286,13 @@ export function generateInvoiceHTML(data) {
     }
     table.inv-table th {
       background: #1c1c1c !important;
+      background-color: #1c1c1c !important;
+      box-shadow: inset 0 0 0 1000px #1c1c1c !important;
+      color: #ffffff !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+      background: #1c1c1c !important;
       color: #fff !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
@@ -302,6 +315,12 @@ export function generateInvoiceHTML(data) {
     .fb { font-weight: 700; }
 
     .subtotal-row td {
+      background: #eeeeee !important;
+      background-color: #eeeeee !important;
+      box-shadow: inset 0 0 0 1000px #eeeeee !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
       background: #eee !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
@@ -363,6 +382,12 @@ export function generateInvoiceHTML(data) {
     table.tot-table .label-col { font-weight: 700; }
     table.tot-table .val-col { text-align: right; font-weight: 700; }
     table.tot-table .net-row td {
+      background: #d4af37 !important;
+      background: linear-gradient(90deg, #c59b27 0%, #d4af37 100%) !important;
+      box-shadow: inset 0 0 0 1000px #d4af37 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
       background: linear-gradient(90deg, #c59b27 0%, #d4af37 100%) !important;
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
@@ -527,7 +552,7 @@ export function generateInvoiceHTML(data) {
     <div class="main-body">
       <!-- Gold Meta Bar -->
       <div class="gold-meta-bar-wrap">
-        <div class="gold-meta-bar">
+        <div class="gold-meta-bar" style="background:#d4af37 !important; box-shadow: inset 0 0 0 1000px #d4af37 !important; -webkit-print-color-adjust:exact !important; color:#000000 !important;">
           <div><span class="lbl">Invoice No: </span><span class="val">${data.invoice_number || ''}</span></div>
           <div><span class="lbl">Date: </span><span class="val">${fmtDate(data.created_at)}</span></div>
         </div>
@@ -555,13 +580,13 @@ export function generateInvoiceHTML(data) {
         <table class="inv-table">
           <thead>
             <tr>
-              <th style="width:36px;">SR<br>NO</th>
-              <th>DESCRIPTION</th>
-              <th style="width:45px;">QTY</th>
-              <th style="width:55px;">SQ.FT.</th>
-              <th style="width:55px;">UNITS</th>
-              <th style="width:75px;">RATE</th>
-              <th style="width:85px;">AMT</th>
+              <th style="width:36px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">SR<br>NO</th>
+              <th style="background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">DESCRIPTION</th>
+              <th style="width:45px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">QTY</th>
+              <th style="width:55px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">SQ.FT.</th>
+              <th style="width:55px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">UNITS</th>
+              <th style="width:75px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">RATE</th>
+              <th style="width:85px; background-color:#1c1c1c !important; box-shadow: inset 0 0 0 1000px #1c1c1c !important; color:#ffffff !important; -webkit-print-color-adjust:exact !important;">AMT</th>
             </tr>
           </thead>
           <tbody>
@@ -610,7 +635,7 @@ export function generateInvoiceHTML(data) {
               <tr><td>Disc.</td><td class="val-col">${data.discount_amount > 0 ? `₹ ${fmt(data.discount_amount)}` : '-'}</td></tr>
               <tr><td>Transport / Hamali</td><td class="val-col">${data.transport_hamali > 0 ? `₹ ${fmt(data.transport_hamali)}` : '-'}</td></tr>
               <tr><td>GST (${data.gst_percentage || 18}%)</td><td class="val-col">${data.gst_amount > 0 ? `₹ ${fmt(data.gst_amount)}` : '-'}</td></tr>
-              <tr class="net-row"><td>Net Total</td><td class="val-col">₹ ${fmt(data.grand_total)}</td></tr>
+              <tr class="net-row" style="background:#d4af37 !important; box-shadow: inset 0 0 0 1000px #d4af37 !important; -webkit-print-color-adjust:exact !important;"><td>Net Total</td><td class="val-col">₹ ${fmt(data.grand_total)}</td></tr>
             </table>
             <div class="words-block">
               <div class="words-label">Total Amt ( In Words )</div>
