@@ -375,16 +375,6 @@ function seedUsers() {
     console.log(`✅ Demo Admin created: admin@mrtraders.site / Admin@123 [${empId}]`);
   }
 
-  // Demo Employee
-  const emp = db.prepare("SELECT id FROM users WHERE email = ?").get('employee@mrtraders.site');
-  if (!emp) {
-    const hash = bcrypt.hashSync('Employee@123', 12);
-    const empId = generateEmployeeId('employee');
-    db.prepare(`INSERT INTO users (employee_id, name, email, password_hash, role) VALUES (?, ?, ?, ?, ?)`)
-      .run(empId, 'Employee User', 'employee@mrtraders.site', hash, 'employee');
-    console.log(`✅ Demo Employee created: employee@mrtraders.site / Employee@123 [${empId}]`);
-  }
-
   // Assign employee_ids to any remaining users without one
   const noIdUsers = db.prepare("SELECT id, role FROM users WHERE employee_id IS NULL").all();
   for (const u of noIdUsers) {

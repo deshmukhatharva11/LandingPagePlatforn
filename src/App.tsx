@@ -26,6 +26,12 @@ const ProjectDetail = lazy(() => import('./components/Projects/ProjectDetail'));
 const ChatWidget = lazy(() => import('./components/ChatWidget'));
 const AppShell = lazy(() => import('./pages/App/index'));
 
+function RootRedirect() {
+  const isPortal = typeof window !== 'undefined' && (window.location.hostname.startsWith('portal.') || window.location.hostname.includes('portal'));
+  if (isPortal) return <Navigate to='/app/login' replace />;
+  return <JourneyExperience />;
+}
+
 function HomePage() {
   return (
     <>
