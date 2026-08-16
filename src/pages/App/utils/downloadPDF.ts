@@ -5,9 +5,8 @@ export async function downloadInvoicePDF(
   invoiceId: number | string,
   invoiceNumber?: string
 ): Promise<void> {
-  const filename = invoiceNumber
-    ? (invoiceNumber.endsWith('.pdf') ? invoiceNumber : invoiceNumber + '.pdf')
-    : 'invoice.pdf';
+  const rawName = invoiceNumber || 'Invoice';
+  const filename = rawName.endsWith('.pdf') ? rawName : rawName + '.pdf';
 
   try {
     const response = await client.get('/invoices/' + invoiceId + '/pdf', {
@@ -20,20 +19,32 @@ export async function downloadInvoicePDF(
       throw new Error('Invalid PDF template response');
     }
 
-    // Create temporary container for html2pdf
+    // Create container positioned on document body so html2canvas renders full content
     const container = document.createElement('div');
-    container.style.position = 'fixed';
-    container.style.left = '-9999px';
+    container.style.position = 'absolute';
     container.style.top = '0';
+    container.style.left = '0';
     container.style.width = '210mm';
+    container.style.zIndex = '999999';
+    container.style.background = '#ffffff';
     container.innerHTML = htmlContent;
+
     document.body.appendChild(container);
+
+    // Give DOM 300ms to render images & fonts
+    await new Promise(resolve => setTimeout(resolve, 300));
 
     const opt = {
       margin: 0,
       filename: filename,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true, logging: false },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        scrollX: 0,
+        scrollY: 0
+      },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
