@@ -36,10 +36,9 @@ const allowedOrigins = [
 ];
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (server-to-server, curl, PHP proxy)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(null, true); // Allow all - PHP proxy handles security
+    return callback(null, true);
   },
   credentials: true,
 }));
@@ -75,8 +74,7 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/audit', auditRoutes);
 
-
-// Global error handler — secure error responses (no stack traces, no internal details)
+// Global error handler
 app.use((err, req, res, _next) => {
   console.error('[ERROR]', err);
   const isProduction = process.env.NODE_ENV === 'production';
@@ -86,21 +84,37 @@ app.use((err, req, res, _next) => {
   });
 });
 
-// Prevent silent crashes - log ALL unhandled errors
+// Prevent silent crashes
 process.on('uncaughtException', (err) => {
   console.error('[UNCAUGHT EXCEPTION]', new Date().toISOString(), err.message, err.stack);
-  // Don't exit - keep server running
 });
-
-process.on('unhandledRejection', (reason, promise) => {
+process.on('unhandledRejection', (reason) => {
   console.error('[UNHANDLED REJECTION]', new Date().toISOString(), reason);
-  // Don't exit - keep server running
+});
+process.on('SIGTERM', () => {
+  console.log('[SIGTERM received - ignoring]', new Date().toISOString());
+});
+process.on('SIGHUP', () => {
+  console.log('[SIGHUP received - ignoring]', new Date().toISOString());
 });
 
-// Keep the process alive even if event loop would drain
-setInterval(() => {}, 1000 * 60 * 60); // heartbeat every hour
+// Heartbeat to keep event loop alive
+setInterval(() => {}, 1000 * 60 * 60);
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`\n🚀 MR Traders API Server running on http://localhost:${PORT}`);
-  console.log(`📊 API: http://localhost:${PORT}/api/health\n`);
-});
+// Auto-detect: Unix socket on Linux (Hostinger), TCP port on Windows (local dev)
+const isLinux = process.platform === 'linux';
+const SOCKET_PATH = path.join(__dirname, 'mrtraders.sock');
+
+if (isLinux) {
+  try { fs.unlinkSync(SOCKET_PATH); } catch(e) {}
+  app.listen(SOCKET_PATH, () => {
+    try { fs.chmodSync(SOCKET_PATH, 0o777); } catch(e) {}
+    console.log('\n\u{1F680} MR Traders API Server running on socket: ' + SOCKET_PATH);
+    console.log('\u{1F4CA} Test: curl --unix-socket ' + SOCKET_PATH + ' http://localhost/api/health\n');
+  });
+} else {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log('\n\u{1F680} MR Traders API Server running on http://0.0.0.0:' + PORT);
+    console.log('\u{1F4CA} API: http://127.0.0.1:' + PORT + '/api/health\n');
+  });
+}
