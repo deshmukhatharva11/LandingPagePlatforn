@@ -28,8 +28,19 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // CORS
+const allowedOrigins = [
+  'https://portal.mrtraders.site',
+  'https://mrtraders.site',
+  'http://localhost:5173',
+  'http://localhost:4173',
+];
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' ? false : ['http://localhost:5173', 'http://localhost:4173'],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (server-to-server, curl, PHP proxy)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(null, true); // Allow all - PHP proxy handles security
+  },
   credentials: true,
 }));
 
@@ -74,6 +85,20 @@ app.use((err, req, res, _next) => {
     message: isProduction ? 'Something went wrong. Please try again.' : (err.message || 'Something went wrong.'),
   });
 });
+
+// Prevent silent crashes - log ALL unhandled errors
+process.on('uncaughtException', (err) => {
+  console.error('[UNCAUGHT EXCEPTION]', new Date().toISOString(), err.message, err.stack);
+  // Don't exit - keep server running
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('[UNHANDLED REJECTION]', new Date().toISOString(), reason);
+  // Don't exit - keep server running
+});
+
+// Keep the process alive even if event loop would drain
+setInterval(() => {}, 1000 * 60 * 60); // heartbeat every hour
 
 app.listen(PORT, () => {
   console.log(`\n🚀 MR Traders API Server running on http://localhost:${PORT}`);
