@@ -531,22 +531,22 @@ export function generateInvoiceHTML(data) {
       <div class="gstin-top-strip">GSTIN- 27AGHPV7718B2Z5</div>
       <div class="header-inner">
         <div class="logo-area">
-          ${img7 ? `<img src="${img7}" alt="MR TRADERS" />` : ''}
+          ${img2 ? `<img src="${img2}" alt="MR TRADERS" />` : ''}
         </div>
         <div class="company-area">
           <div class="company-name">MR TRADERS INTERIOR</div>
           <div class="company-tagline">DESIGNING &amp; FURNITURE</div>
           <div class="contacts-stack">
             <div class="contact-item email">
-              ${img2 ? `<img src="${img2}" />` : ''}
+              ${img3 ? `<img src="${img3}" />` : ''}
               <a href="mailto:mrtradersofficial01@gmail.com">mrtradersofficial01@gmail.com</a>
             </div>
             <div class="contact-item">
-              ${img3 ? `<img src="${img3}" />` : ''}
+              ${img4 ? `<img src="${img4}" />` : ''}
               <span>@mr__interiors .1</span>
             </div>
             <div class="contact-item">
-              ${img4 ? `<img src="${img4}" />` : ''}
+              ${img5 ? `<img src="${img5}" />` : ''}
               <span>9028953853</span>
             </div>
           </div>
@@ -709,7 +709,7 @@ export function generateInvoiceHTML(data) {
       ${img6 ? `<img src="${img6}" class="footer-bg" />` : ''}
       <div class="footer-inner">
         <div class="footer-address-wrap">
-          ${img8 ? `<img src="${img8}" />` : ''}
+          ${img7 ? `<img src="${img7}" class="footer-pin" />` : ''}
           <div class="footer-address-lines">
             MR Traders &amp; Factory Outlet,<br>
             Nilgiri Baug, Sambhaji Nagar Road,<br>
@@ -717,7 +717,7 @@ export function generateInvoiceHTML(data) {
           </div>
         </div>
         <div class="footer-phone-wrap">
-          ${img5 ? `<img src="${img5}" />` : ''}
+          ${img8 ? `<img src="${img8}" class="footer-phone-icon" />` : ''}
           <span>9028953854</span>
         </div>
       </div>
