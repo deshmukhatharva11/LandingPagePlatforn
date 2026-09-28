@@ -100,7 +100,7 @@ process.on('unhandledRejection', (reason, promise) => {
 // Keep the process alive even if event loop would drain
 setInterval(() => {}, 1000 * 60 * 60); // heartbeat every hour
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`\n🚀 MR Traders API Server running on http://localhost:${PORT}`);
   console.log(`📊 API: http://localhost:${PORT}/api/health\n`);
 });
