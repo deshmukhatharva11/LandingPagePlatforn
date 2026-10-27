@@ -26,9 +26,16 @@ const ProjectDetail = lazy(() => import('./components/Projects/ProjectDetail'));
 const ChatWidget = lazy(() => import('./components/ChatWidget'));
 const AppShell = lazy(() => import('./pages/App/index'));
 
+function isPortalHostname() {
+  if (typeof window === 'undefined') return false;
+  const h = window.location.hostname.toLowerCase();
+  return h.startsWith('portal.') || h.includes('portal') ||
+         h.startsWith('erp.') || h.includes('erp') ||
+         h.startsWith('m21cz11sr.') || h.includes('m21cz11sr');
+}
+
 function RootRedirect() {
-  const isPortal = typeof window !== 'undefined' && (window.location.hostname.startsWith('portal.') || window.location.hostname.includes('portal') || window.location.hostname.startsWith('erp.') || window.location.hostname.includes('erp'));
-  if (isPortal) return <Navigate to='/app/login' replace />;
+  if (isPortalHostname()) return <Navigate to='/app/login' replace />;
   return <JourneyExperience />;
 }
 
@@ -76,7 +83,7 @@ function SiteLayout() {
 
 function ConditionalChatWidget() {
   const location = useLocation();
-  if (location.pathname.startsWith('/app')) return null;
+  if (location.pathname.startsWith('/app') || isPortalHostname()) return null;
   return <ChatWidget />;
 }
 
@@ -88,7 +95,7 @@ export default function App() {
         <SEO />
         <Suspense fallback={<div className="min-h-screen bg-main" />}>
           <Routes future={{ v7_relativeSplatPath: true }}>
-            <Route path="/" element={<JourneyExperience />} />
+            <Route path="/" element={<RootRedirect />} />
             <Route path="/discover" element={<JourneyExperience />} />
             <Route element={<SiteLayout />}>
               <Route path="/classic" element={<HomePage />} />

@@ -31,6 +31,7 @@ const PORT = process.env.PORT || 3001;
 const allowedOrigins = [
   'https://portal.mrtraders.site',
   'https://erp.mrtraders.site',
+  'https://m21cz11sr.mrtraders.site',
   'https://mrtraders.site',
   'http://localhost:5173',
   'http://localhost:4173',
