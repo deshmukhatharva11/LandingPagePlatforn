@@ -101,11 +101,11 @@ process.on('SIGHUP', () => {
 // Heartbeat to keep event loop alive
 setInterval(() => {}, 1000 * 60 * 60);
 
-// Auto-detect: Unix socket on Linux (Hostinger), TCP port on Windows (local dev)
-const isLinux = process.platform === 'linux';
+// Listen configuration: Unix socket if USE_SOCKET=true, otherwise TCP port (default 3001)
+const USE_SOCKET = process.env.USE_SOCKET === 'true';
 const SOCKET_PATH = path.join(__dirname, 'mrtraders.sock');
 
-if (isLinux) {
+if (USE_SOCKET) {
   try { fs.unlinkSync(SOCKET_PATH); } catch(e) {}
   app.listen(SOCKET_PATH, () => {
     try { fs.chmodSync(SOCKET_PATH, 0o777); } catch(e) {}
