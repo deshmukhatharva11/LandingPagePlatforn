@@ -43,7 +43,7 @@ function isPortalHostname() {
 
 function RootRedirect() {
   if (isPortalHostname()) return <Navigate to='/app/login' replace />;
-  return <HomePage />;
+  return <JourneyExperience />;
 }
 
 function HomePage() {
@@ -114,11 +114,10 @@ export default function App() {
         <ScrollToTop />
         <Suspense fallback={<div className="min-h-screen bg-main" />}>
           <Routes future={{ v7_relativeSplatPath: true }}>
+            <Route path="/" element={<RootRedirect />} />
             <Route path="/discover" element={<JourneyExperience />} />
             <Route element={<SiteLayout />}>
-              <Route path="/" element={<RootRedirect />} />
               <Route path="/classic" element={<HomePage />} />
-              <Route path="/projects" element={<HomePage />} />
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<ServicesPage />} />
               
