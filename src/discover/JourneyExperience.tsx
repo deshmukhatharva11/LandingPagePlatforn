@@ -44,8 +44,17 @@ export default function JourneyExperience() {
     <>
       <SEO
         title="MR Interiors | Interior Designer & Factory Outlet in Nashik"
-        description="MR Interiors delivers turnkey home interiors, modular kitchens, custom wardrobes, and commercial interior design in Nashik, Pune & Mumbai with factory-direct pricing."
+        description="MR Interiors delivers turnkey home interiors, modular kitchens, custom wardrobes, and commercial interior design in Nashik, Pune & Mumbai with factory-direct pricing. 1000+ homes delivered. Call +91 9423640903."
         canonical="/"
+        includeRating={true}
+        keywords="interior designer in Nashik, home interiors Nashik, modular kitchen Nashik, wardrobe designer Nashik, best interior designer Nashik, MR Interiors, MR Traders, interior design company Nashik"
+        speakableAnswer="MR Interiors is Nashik's leading interior design studio and factory outlet with 35+ years of experience. They provide turnkey home interiors, modular kitchens, custom wardrobes, and commercial interiors across Nashik, Pune, and Mumbai at factory-direct pricing. Their Nashik studio is located at Nilgiri Baug, Sambhaji Nagar Road, Nandura Naka. Contact them at +91 9423640903."
+        howToSteps={[
+          { name: 'Book a Free Consultation', text: 'Call +91 9423640903 or fill the contact form on the website. Our design consultant will schedule a free site visit at your convenience.' },
+          { name: 'Design & 3D Visualization', text: 'Our interior architects create custom 2D layouts and photorealistic 3D renders. Visit our Nashik factory outlet to select materials in person.' },
+          { name: 'Material Selection at Factory Outlet', text: 'Choose from premium plywood, laminates, hardware (Hafele, Hettich), and finishes at our direct factory outlet – no middlemen, saving you 20-30%.' },
+          { name: 'Manufacturing & Installation', text: 'Furniture is precision-manufactured at our Nashik factory. Our on-site team handles installation with a committed 45-day timeline and 10-year warranty.' },
+        ]}
       />
       {phase !== 'hero' && <JourneyNav onHome={toHero} onNavigate={goToSection} progress={phase === 'showcase' ? 1 : quizProgress} />}
       <AnimatePresence mode="wait">

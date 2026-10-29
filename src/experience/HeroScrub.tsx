@@ -143,9 +143,10 @@ export default function HeroScrub({ onComplete }: { onComplete: () => void }) {
             <span className="dp-exp__line">Nashik &middot; Factory Outlet &amp; Interior Studio</span>
           </p>
           <h1 className="dp-exp__title">
-            <span className="dp-exp__line">Your Home Deserves</span>
+            <span className="sr-only">MR Interiors – Best Interior Designer in Nashik</span>
+            <span className="dp-exp__line" aria-hidden="true">Your Home Deserves</span>
             <br />
-            <span className="dp-exp__line">
+            <span className="dp-exp__line" aria-hidden="true">
               <em>The Best.</em>
             </span>
           </h1>
