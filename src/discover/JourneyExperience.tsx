@@ -44,7 +44,7 @@ export default function JourneyExperience() {
     <>
       <SEO
         title="MR Interiors | Interior Designer & Factory Outlet in Nashik"
-        description="MR Interiors delivers turnkey home interiors, modular kitchens, custom wardrobes, and commercial interior design in Nashik, Pune & Mumbai with factory-direct pricing. 1000+ homes delivered. Call +91 9423640903."
+        description="Turnkey home interiors, modular kitchens & custom wardrobes in Nashik by MR Interiors. Factory-direct pricing with 10-year warranty. Call +91 9423640903."
         canonical="/"
         includeRating={true}
         keywords="interior designer in Nashik, home interiors Nashik, modular kitchen Nashik, wardrobe designer Nashik, best interior designer Nashik, MR Interiors, MR Traders, interior design company Nashik"
