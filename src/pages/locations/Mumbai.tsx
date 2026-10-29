@@ -65,11 +65,14 @@ export default function MumbaiLocation() {
     <>
       <SEO
         title="Interior Designer in Mumbai | Space-Saving Home Interiors | MR Interiors"
-        description="Looking for modern interior design in Mumbai? MR Interiors specializes in space-saving home interiors, modular kitchens, and custom wardrobes with factory-direct pricing."
+        description="Looking for modern interior design in Mumbai? MR Interiors specializes in space-saving home interiors, modular kitchens, and custom wardrobes with factory-direct pricing. Call +91 9423640903."
         canonical="/interior-designer-mumbai"
         serviceName="Interior Design and Execution in Mumbai"
         serviceDescription="Turnkey residential interiors, space-saving modular kitchens, custom wardrobes, and fit-outs across Mumbai, Thane, and Navi Mumbai."
         city="Mumbai"
+        keywords="interior designer in Mumbai, home interiors Mumbai, modular kitchen Mumbai, wardrobe designer Mumbai, best interior designer Mumbai, flat interior design Mumbai, compact home interior Mumbai, space saving furniture Mumbai"
+        includeRating={true}
+        speakableAnswer="MR Interiors serves Mumbai, Thane, and Navi Mumbai with space-saving interior design solutions. Manufactured at their Nashik factory outlet, they deliver modular kitchens, compact wardrobes, and complete home interiors optimized for Mumbai's smaller apartment sizes. Factory-direct pricing saves Mumbai homeowners 20-30%. Call +91 9423640903 for a free Mumbai consultation."
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Locations', url: '/interior-designer-mumbai' },

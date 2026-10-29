@@ -77,10 +77,19 @@ export default function ModularKitchens() {
     <>
       <SEO
         title="Modular Kitchen Designer in Nashik, Pune & Mumbai | MR Interiors"
-        description="Looking for modern modular kitchens? MR Interiors crafts custom L-shaped, parallel & island kitchens with waterproof plywood and factory-direct pricing."
+        description="Looking for modern modular kitchens? MR Interiors crafts custom L-shaped, parallel & island kitchens with waterproof plywood and factory-direct pricing in Nashik, Pune & Mumbai. Call +91 9423640903."
         canonical="/modular-kitchens"
         serviceName="Modular Kitchen Design and Installation"
         serviceDescription="Customized modular kitchen manufacturing, waterproof carcass, soft-close hardware, and turnkey kitchen installation."
+        keywords="modular kitchen Nashik, modular kitchen designer, L shape kitchen Nashik, kitchen design Nashik, modular kitchen price Nashik, best modular kitchen, kitchen interior Nashik, parallel kitchen design"
+        includeRating={true}
+        speakableAnswer="MR Interiors designs and installs custom modular kitchens in Nashik, Pune, and Mumbai. They offer L-shaped, U-shaped, parallel, and island kitchen layouts using 100% waterproof BWP grade plywood with branded German hardware from Hafele, Hettich, and Blum. Prices start from ₹1.2 Lakhs with factory-direct savings of up to 25%. All kitchens come with a 10-year warranty."
+        howToSteps={[
+          { name: 'Kitchen Measurement & Layout Planning', text: 'Our designer visits your home to measure the kitchen space and discuss your cooking preferences, storage needs, and appliance placement.' },
+          { name: 'Material & Finish Selection', text: 'Choose from acrylic, PU lacquer, laminate, or glass shutter finishes. Select hardware, baskets, and accessories at our Nashik factory outlet.' },
+          { name: 'Factory Manufacturing', text: 'Your kitchen modules are CNC-machined and edge-banded at our Nashik factory with precision quality control.' },
+          { name: 'On-Site Installation', text: 'Our installation team fits the modular units, plumbing connections, chimney ducting, and countertop within 7-10 working days.' },
+        ]}
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Services', url: '/services' },

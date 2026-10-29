@@ -73,10 +73,13 @@ export default function Wardrobes() {
     <>
       <SEO
         title="Custom Wardrobe & Furniture Designer in Nashik | MR Interiors"
-        description="Premium sliding wardrobes, walk-in closets, and custom furniture in Nashik, Pune & Mumbai. Factory outlet pricing with 10-year durability."
+        description="Premium sliding wardrobes, walk-in closets, and custom furniture in Nashik, Pune & Mumbai. Factory outlet pricing with 10-year durability. Call +91 9423640903."
         canonical="/wardrobes"
         serviceName="Custom Wardrobe and Furniture Design"
         serviceDescription="Sliding wardrobes, walk-in closets, modular storage systems, and custom furniture manufacturing."
+        keywords="wardrobe designer Nashik, custom wardrobe Nashik, sliding wardrobe Nashik, walk-in closet Nashik, furniture designer Nashik, bedroom wardrobe design, modular wardrobe Nashik"
+        includeRating={true}
+        speakableAnswer="MR Interiors designs and manufactures custom wardrobes and furniture in Nashik, Pune, and Mumbai. Options include floor-to-ceiling sliding door wardrobes, hinged wardrobes, walk-in closets, and bespoke loose furniture. All wardrobes use BWR/HDHMR plywood with soft-close hardware and come with a 10-year warranty. Factory-direct pricing saves customers 20-30% compared to retail."
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Services', url: '/services' },

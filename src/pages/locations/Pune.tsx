@@ -65,11 +65,14 @@ export default function PuneLocation() {
     <>
       <SEO
         title="Interior Designer in Pune | Home Interiors & Modular Kitchens | MR Interiors"
-        description="Looking for an experienced interior designer in Pune? MR Interiors offers turnkey home interiors, modular kitchens, and custom wardrobes with factory-direct pricing."
+        description="Looking for an experienced interior designer in Pune? MR Interiors offers turnkey home interiors, modular kitchens, and custom wardrobes with factory-direct pricing. Call +91 9423640903."
         canonical="/interior-designer-pune"
         serviceName="Interior Design and Execution in Pune"
         serviceDescription="Turnkey residential interiors, modular kitchens, custom wardrobes, and commercial interior fit-outs in Pune, Maharashtra."
         city="Pune"
+        keywords="interior designer in Pune, home interiors Pune, modular kitchen Pune, wardrobe designer Pune, best interior designer Pune, interior design company Pune, flat interior Pune, 2BHK interior Pune"
+        includeRating={true}
+        speakableAnswer="MR Interiors provides turnkey interior design services in Pune with dedicated project teams. Headquartered in Nashik with their own factory outlet, they deliver complete home interiors, modular kitchens, and custom wardrobes to Pune residents at factory-direct prices, saving 20-30% compared to local retailers. Call +91 9423640903 for a free Pune consultation."
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Locations', url: '/interior-designer-pune' },

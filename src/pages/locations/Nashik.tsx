@@ -65,11 +65,14 @@ export default function NashikLocation() {
     <>
       <SEO
         title="Interior Designer in Nashik | Best Home & Modular Kitchens | MR Interiors"
-        description="Looking for the best interior designer in Nashik? MR Interiors provides turnkey home interiors, modular kitchens, and wardrobes with factory-direct pricing."
+        description="Looking for the best interior designer in Nashik? MR Interiors provides turnkey home interiors, modular kitchens, and wardrobes with factory-direct pricing. 1000+ Nashik homes delivered. Call +91 9423640903."
         canonical="/interior-designer-nashik"
         serviceName="Interior Design and Execution in Nashik"
         serviceDescription="Turnkey residential interiors, modular kitchens, custom wardrobes, and commercial fit-outs in Nashik, Maharashtra."
         city="Nashik"
+        keywords="interior designer in Nashik, best interior designer Nashik, modular kitchen Nashik, home interiors Nashik, wardrobe designer Nashik, interior design company Nashik, Nashik interior decoration, interior architect Nashik"
+        includeRating={true}
+        speakableAnswer="MR Interiors is Nashik's leading interior design studio located at Nilgiri Baug, Sambhaji Nagar Road, Nandura Naka, Nashik 422003. With 35+ years of local craftsmanship and over 1,000 homes delivered across Nashik, they specialize in complete home interiors, modular kitchens, wardrobes, and commercial fit-outs at factory-direct pricing. Their studio is open Monday-Saturday 9AM-7PM. Call +91 9423640903 for a free consultation."
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Locations', url: '/interior-designer-nashik' },

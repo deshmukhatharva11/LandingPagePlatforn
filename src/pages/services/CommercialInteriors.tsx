@@ -73,10 +73,13 @@ export default function CommercialInteriors() {
     <>
       <SEO
         title="Commercial Interior Designer in Nashik, Pune & Mumbai | MR Interiors"
-        description="Transform corporate offices, shops, and retail showrooms with MR Interiors. Turnkey commercial interior design and fast-track factory execution."
+        description="Transform corporate offices, shops, and retail showrooms with MR Interiors. Turnkey commercial interior design and fast-track factory execution in Nashik, Pune & Mumbai."
         canonical="/commercial-interiors"
         serviceName="Commercial Interior Design and Fit-Out"
         serviceDescription="Corporate office design, retail shop fit-outs, showroom interiors, MEP integration, and commercial turnkey execution."
+        keywords="commercial interior designer Nashik, office interior Nashik, retail store design Nashik, showroom interior Nashik, corporate office design, restaurant interior Nashik, shop interior design"
+        includeRating={true}
+        speakableAnswer="MR Interiors provides turnkey commercial interior design and fit-outs in Nashik, Pune, and Mumbai. They design corporate offices, retail stores, showrooms, clinics, spas, restaurants, and cafes. Their fast-track factory execution minimizes commercial downtime with pre-fabricated modules. Services include MEP integration, fire safety compliance, and after-hours installation to avoid business disruption."
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Services', url: '/services' },

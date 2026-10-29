@@ -73,10 +73,20 @@ export default function HomeInteriors() {
     <>
       <SEO
         title="Complete Home Interiors in Nashik, Pune & Mumbai | MR Interiors"
-        description="Transform your home with MR Interiors. Turnkey residential interior design, customized furniture, and factory-direct quality across Nashik, Pune, and Mumbai."
+        description="Transform your home with MR Interiors. Turnkey residential interior design, customized furniture, and factory-direct quality across Nashik, Pune, and Mumbai. 10-year warranty. Call +91 9423640903."
         canonical="/home-interiors"
         serviceName="Complete Home Interiors"
         serviceDescription="Full home residential interior design, modular furniture manufacturing, false ceiling, and turnkey execution."
+        keywords="home interiors Nashik, complete home interior design, residential interior designer Nashik, 2BHK interior design Nashik, 3BHK interior Nashik, home decoration Nashik, turnkey interiors Nashik"
+        includeRating={true}
+        speakableAnswer="MR Interiors offers complete home interior packages in Nashik, Pune, and Mumbai starting from turnkey design to on-site installation. Their services include living room design, bedroom interiors, modular kitchens, false ceilings, and custom furniture. With factory-direct pricing, homeowners save 20-30%. Projects are completed within 45 days with a 10-year warranty."
+        howToSteps={[
+          { name: 'Free Site Visit & Measurement', text: 'Our interior designer visits your home for free to take precise measurements and understand your lifestyle requirements.' },
+          { name: 'Custom 3D Design & Quotation', text: 'Receive photorealistic 3D renders of every room with itemized transparent pricing within 5 working days.' },
+          { name: 'Material Selection at Factory Outlet', text: 'Visit our Nashik factory outlet to personally select plywood, laminates, hardware, and finishes.' },
+          { name: 'Manufacturing & Quality Check', text: 'Your custom furniture is precision-manufactured at our Nashik facility with multiple quality checkpoints.' },
+          { name: 'On-Site Installation & Handover', text: 'Our trained carpenter team installs everything on-site within the committed 45-day timeline, followed by a thorough final walkthrough.' },
+        ]}
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Services', url: '/services' },

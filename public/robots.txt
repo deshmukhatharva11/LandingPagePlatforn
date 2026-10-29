@@ -9,5 +9,30 @@ Disallow: /users
 Disallow: /audit
 Disallow: /login
 
+# Allow all AI crawlers and search engine bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 # Sitemaps
 Sitemap: https://mrtraders.site/sitemap.xml
