@@ -14,6 +14,13 @@ import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
 import About from './pages/About';
 import ServicesPage from './pages/Services';
+import HomeInteriors from './pages/services/HomeInteriors';
+import ModularKitchens from './pages/services/ModularKitchens';
+import Wardrobes from './pages/services/Wardrobes';
+import CommercialInteriors from './pages/services/CommercialInteriors';
+import NashikLocation from './pages/locations/Nashik';
+import PuneLocation from './pages/locations/Pune';
+import MumbaiLocation from './pages/locations/Mumbai';
 import ScrollToTop from './components/ScrollToTop';
 import SEO from './components/SEO';
 import Breadcrumbs from './components/Breadcrumbs';
@@ -42,6 +49,11 @@ function RootRedirect() {
 function HomePage() {
   return (
     <>
+      <SEO
+        title="MR Interiors | Interior Designer & Factory Outlet in Nashik"
+        description="MR Interiors provides turnkey home interiors, modular kitchens, custom wardrobes, and commercial interior design in Nashik, Pune & Mumbai with factory-direct pricing."
+        canonical="/"
+      />
       <Hero />
       <ParallaxSlideshow />
       <Services />
@@ -56,22 +68,30 @@ function HomePage() {
 }
 
 function SiteLayout() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Show splash animation only once per browser session
+    if (typeof window !== 'undefined' && sessionStorage.getItem('mr_site_loaded')) {
+      return false;
+    }
+    return true;
+  });
 
   useEffect(() => {
+    if (!isLoading) return;
     const loadingTimer = setTimeout(() => {
       setIsLoading(false);
-      setTimeout(() => setShowContent(true), 100);
-    }, 2500);
+      try {
+        sessionStorage.setItem('mr_site_loaded', '1');
+      } catch (_) {}
+    }, 1200);
 
     return () => clearTimeout(loadingTimer);
-  }, []);
+  }, [isLoading]);
 
   return (
     <>
       {isLoading && <LoadingScreen />}
-      <div className={`min-h-screen transition-opacity duration-1000 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
+      <div className="min-h-screen">
         <Navbar />
         <Breadcrumbs />
         <Outlet />
@@ -92,7 +112,6 @@ export default function App() {
     <HelmetProvider>
       <Router future={{ v7_startTransition: true }}>
         <ScrollToTop />
-        <SEO />
         <Suspense fallback={<div className="min-h-screen bg-main" />}>
           <Routes future={{ v7_relativeSplatPath: true }}>
             <Route path="/" element={<RootRedirect />} />
@@ -101,8 +120,21 @@ export default function App() {
               <Route path="/classic" element={<HomePage />} />
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<ServicesPage />} />
+              
+              {/* Dedicated Service Routes */}
+              <Route path="/home-interiors" element={<HomeInteriors />} />
+              <Route path="/modular-kitchens" element={<ModularKitchens />} />
+              <Route path="/wardrobes" element={<Wardrobes />} />
+              <Route path="/commercial-interiors" element={<CommercialInteriors />} />
+
+              {/* Dedicated Location Routes */}
+              <Route path="/interior-designer-nashik" element={<NashikLocation />} />
+              <Route path="/interior-designer-pune" element={<PuneLocation />} />
+              <Route path="/interior-designer-mumbai" element={<MumbaiLocation />} />
+
               <Route path="/project/:id" element={<ProjectDetail />} />
             </Route>
+
             {/* Direct Aliases for App Routes */}
             <Route path="/login" element={<Navigate to="/app/login" replace />} />
             <Route path="/dashboard" element={<Navigate to="/app/dashboard" replace />} />
@@ -111,6 +143,7 @@ export default function App() {
             <Route path="/products" element={<Navigate to="/app/products" replace />} />
             <Route path="/users" element={<Navigate to="/app/users" replace />} />
             <Route path="/audit" element={<Navigate to="/app/audit" replace />} />
+            
             {/* Business App Module */}
             <Route path="/app/*" element={<AppShell />} />
           </Routes>

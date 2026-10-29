@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
+Disallow: /app/
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /invoices
+Disallow: /products
+Disallow: /users
+Disallow: /audit
+Disallow: /login
 
+# Sitemaps
 Sitemap: https://mrtraders.site/sitemap.xml

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Award, Users, Clock, Sparkles, Rocket, Trophy } from 'lucide-react';
 import { motion } from 'framer-motion';
+import SEO from '../components/SEO';
 
 const stats = [
   { label: 'Projects Delivered', value: '1000+' },
@@ -10,6 +11,7 @@ const stats = [
 ];
 
 const values = [
+  
   {
     icon: Award,
     title: 'Excellence in Every Detail',
@@ -48,7 +50,17 @@ export default function About() {
   }, []);
 
   return (
-    <div className="pt-32 bg-main">
+    <>
+      <SEO
+        title="About MR Interiors | Nashik's Leading Interior Design & Factory Outlet"
+        description="Learn about MR Interiors (MR Traders & Factory Outlet). Over 35+ years of craftsmanship and 1000+ completed projects across Nashik, Pune, and Mumbai."
+        canonical="/about"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'About Us', url: '/about' },
+        ]}
+      />
+      <div className="pt-32 bg-main">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0">
@@ -186,5 +198,6 @@ export default function About() {
         </div>
       </section>
     </div>
+    </>
   );
 }

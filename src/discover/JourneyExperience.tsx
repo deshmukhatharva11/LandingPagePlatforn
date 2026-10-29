@@ -5,6 +5,7 @@ import HeroScrub from '../experience/HeroScrub';
 import DiscoverExperience from './DiscoverExperience';
 import Showcase from './Showcase';
 import JourneyNav from './JourneyNav';
+import SEO from '../components/SEO';
 import type { Answers } from './report';
 
 /**
@@ -41,6 +42,11 @@ export default function JourneyExperience() {
 
   return (
     <>
+      <SEO
+        title="MR Interiors | Interior Designer & Factory Outlet in Nashik"
+        description="MR Interiors delivers turnkey home interiors, modular kitchens, custom wardrobes, and commercial interior design in Nashik, Pune & Mumbai with factory-direct pricing."
+        canonical="/"
+      />
       {phase !== 'hero' && <JourneyNav onHome={toHero} onNavigate={goToSection} progress={phase === 'showcase' ? 1 : quizProgress} />}
       <AnimatePresence mode="wait">
       {phase === 'hero' && (

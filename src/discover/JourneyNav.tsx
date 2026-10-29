@@ -51,16 +51,18 @@ export default function JourneyNav({
               <img src="/favicon.png" alt="MR Traders" className="h-11 w-auto object-contain sm:h-12" style={{ filter: 'drop-shadow(0 1px 6px rgba(0,0,0,0.7))' }} />
             </button>
  
-            <div className="hidden items-center gap-7 md:flex">
+            <div className="hidden items-center gap-6 md:flex">
               <button onClick={() => act(onHome)} className={LINK}>Home</button>
+              <Link to="/home-interiors" className={LINK}>Interiors</Link>
+              <Link to="/modular-kitchens" className={LINK}>Kitchens</Link>
+              <Link to="/interior-designer-nashik" className={LINK}>Nashik</Link>
               <Link to="/services" className={LINK}>Services</Link>
               <Link to="/about" className={LINK}>About</Link>
-              <button onClick={() => act(() => onNavigate('gallery'))} className={LINK}>Projects</button>
               <button
                 onClick={() => act(() => onNavigate('contact'))}
-                className="rounded-full bg-secondary px-6 py-2 text-main transition-transform hover:scale-105"
+                className="rounded-full bg-secondary px-5 py-2 text-main transition-transform hover:scale-105"
               >
-                Contact Us
+                Contact
               </button>
             </div>
  
@@ -74,9 +76,11 @@ export default function JourneyNav({
           <div className="mt-2 rounded-3xl border border-white/12 bg-main/95 p-3 md:hidden">
             <div className="flex flex-col gap-1">
               <button onClick={() => act(onHome)} className="rounded-xl px-4 py-3 text-left text-accent transition-colors hover:bg-white/5 hover:text-secondary">Home</button>
-              <Link to="/services" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-left text-accent transition-colors hover:bg-white/5 hover:text-secondary">Services</Link>
+              <Link to="/home-interiors" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-left text-accent transition-colors hover:bg-white/5 hover:text-secondary">Home Interiors</Link>
+              <Link to="/modular-kitchens" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-left text-accent transition-colors hover:bg-white/5 hover:text-secondary">Modular Kitchens</Link>
+              <Link to="/interior-designer-nashik" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-left text-accent transition-colors hover:bg-white/5 hover:text-secondary">Nashik Studio</Link>
+              <Link to="/services" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-left text-accent transition-colors hover:bg-white/5 hover:text-secondary">All Services</Link>
               <Link to="/about" onClick={() => setMenuOpen(false)} className="rounded-xl px-4 py-3 text-left text-accent transition-colors hover:bg-white/5 hover:text-secondary">About</Link>
-              <button onClick={() => act(() => onNavigate('gallery'))} className="rounded-xl px-4 py-3 text-left text-accent transition-colors hover:bg-white/5 hover:text-secondary">Projects</button>
               <button onClick={() => act(() => onNavigate('contact'))} className="mt-1 rounded-full bg-secondary px-4 py-3 text-center font-medium text-main">Contact Us</button>
             </div>
           </div>

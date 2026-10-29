@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import { Instagram, Facebook, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -17,37 +18,70 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
-        <div className="grid md:grid-cols-4 gap-12">
-          {/* Logo */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+          {/* Logo & About */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="col-span-2 md:col-span-1 flex items-start"
+            className="sm:col-span-2 lg:col-span-1 flex flex-col items-start"
           >
-            <Logo showText={false} className="scale-125" />
+            <Logo showText={false} className="scale-125 mb-4" />
+            <p className="text-accent/70 text-xs leading-relaxed mt-2">
+              MR Interiors is Maharashtra&apos;s trusted interior design studio &amp; direct factory outlet, transforming spaces across Nashik, Pune, and Mumbai.
+            </p>
           </motion.div>
           
-          {/* Quick Links */}
+          {/* Services Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <h3 className="text-white font-semibold mb-6">Quick Links</h3>
-            <ul className="space-y-4">
+            <h3 className="text-white font-semibold text-sm mb-4">Our Services</h3>
+            <ul className="space-y-2.5 text-xs">
               <li>
-                <a href="#services" className="text-accent hover:text-secondary transition-colors">Services</a>
+                <Link to="/home-interiors" className="text-accent/80 hover:text-secondary transition-colors">Complete Home Interiors</Link>
               </li>
               <li>
-                <a href="#projects" className="text-accent hover:text-secondary transition-colors">Projects</a>
+                <Link to="/modular-kitchens" className="text-accent/80 hover:text-secondary transition-colors">Modular Kitchens</Link>
               </li>
               <li>
-                <a href="/about" className="text-accent hover:text-secondary transition-colors">About Us</a>
+                <Link to="/wardrobes" className="text-accent/80 hover:text-secondary transition-colors">Wardrobes &amp; Furniture</Link>
               </li>
               <li>
-                <a href="#contact" className="text-accent hover:text-secondary transition-colors">Contact</a>
+                <Link to="/commercial-interiors" className="text-accent/80 hover:text-secondary transition-colors">Commercial Fit-Outs</Link>
+              </li>
+              <li>
+                <Link to="/services" className="text-accent/80 hover:text-secondary transition-colors">All Services Overview</Link>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Locations */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+          >
+            <h3 className="text-white font-semibold text-sm mb-4">Locations</h3>
+            <ul className="space-y-2.5 text-xs">
+              <li>
+                <Link to="/interior-designer-nashik" className="text-accent/80 hover:text-secondary transition-colors">Interior Designer in Nashik</Link>
+              </li>
+              <li>
+                <Link to="/interior-designer-pune" className="text-accent/80 hover:text-secondary transition-colors">Interior Designer in Pune</Link>
+              </li>
+              <li>
+                <Link to="/interior-designer-mumbai" className="text-accent/80 hover:text-secondary transition-colors">Interior Designer in Mumbai</Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-accent/80 hover:text-secondary transition-colors">About MR Interiors</Link>
+              </li>
+              <li>
+                <Link to="/discover" className="text-accent/80 hover:text-secondary transition-colors">Design Experience</Link>
               </li>
             </ul>
           </motion.div>
@@ -58,22 +92,22 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="md:col-span-2"
+            className="sm:col-span-2 lg:col-span-2"
           >
-            <h3 className="text-white font-semibold mb-6">Contact</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start text-accent">
-                <MapPin className="h-5 w-5 text-secondary mr-3 shrink-0 mt-1" />
-                <span className="break-words">MR Traders & Factory Outlet, Nilgiri Baug, Sambhaji Nagar Road, Nandura Naka, Nashik-422003</span>
+            <h3 className="text-white font-semibold text-sm mb-4">Contact &amp; Studio</h3>
+            <ul className="space-y-3 text-xs">
+              <li className="flex items-start text-accent/80">
+                <MapPin className="h-4 w-4 text-secondary mr-2.5 shrink-0 mt-0.5" />
+                <span className="break-words">MR Interiors &amp; Factory Outlet, Nilgiri Baug, Sambhaji Nagar Road, Nandura Naka, Nashik - 422003, Maharashtra, India</span>
               </li>
-              <li className="flex items-center text-accent">
-                <Phone className="h-5 w-5 text-secondary mr-3 shrink-0" />
+              <li className="flex items-center text-accent/80">
+                <Phone className="h-4 w-4 text-secondary mr-2.5 shrink-0" />
                 <a href="tel:+919423640903" className="hover:text-secondary transition-colors">
                   +91 9423640903
                 </a>
               </li>
-              <li className="flex items-center text-accent">
-                <Mail className="h-5 w-5 text-secondary mr-3 shrink-0" />
+              <li className="flex items-center text-accent/80">
+                <Mail className="h-4 w-4 text-secondary mr-2.5 shrink-0" />
                 <a href="mailto:mrtradersofficial01@gmail.com" className="hover:text-secondary transition-colors break-all">
                   mrtradersofficial01@gmail.com
                 </a>
@@ -95,6 +129,7 @@ export default function Footer() {
               href="https://www.instagram.com/mr_traders.10"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Instagram"
               className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center hover:bg-secondary/20 transition-colors group"
             >
               <Instagram className="h-5 w-5 text-accent group-hover:text-secondary transition-colors" />
@@ -103,6 +138,7 @@ export default function Footer() {
               href="https://www.facebook.com/mrtradersofficial"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Facebook"
               className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center hover:bg-secondary/20 transition-colors group"
             >
               <Facebook className="h-5 w-5 text-accent group-hover:text-secondary transition-colors" />
@@ -111,6 +147,7 @@ export default function Footer() {
               href="https://www.youtube.com/@mrtraders"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="YouTube"
               className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center hover:bg-secondary/20 transition-colors group"
             >
               <Youtube className="h-5 w-5 text-accent group-hover:text-secondary transition-colors" />
@@ -124,21 +161,13 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="mt-8 text-center"
+          className="mt-8 text-center text-xs"
         >
-          <p className="text-accent">
-            &copy; {new Date().getFullYear()} MR Traders & Factory Outlet, Nashik. All rights reserved.
+          <p className="text-accent/80">
+            &copy; {new Date().getFullYear()} MR Interiors (MR Traders &amp; Factory Outlet). Nashik, Maharashtra. All rights reserved.
           </p>
-          <p className="text-accent/60 text-sm mt-2">
-            Developed & Managed by{" "}
-            <a 
-              href="https://codezillatech.in" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-secondary hover:underline transition-colors font-medium"
-            >
-              CodeZilla
-            </a>
+          <p className="text-accent/50 mt-1">
+            Turnkey Interior Design &amp; Execution in Nashik, Pune &amp; Mumbai.
           </p>
         </motion.div>
       </div>

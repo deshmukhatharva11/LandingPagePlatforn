@@ -30,14 +30,14 @@ export default function LoadingScreen() {
           />
 
           {/* Brand Name */}
-          <motion.h1
-            className="font-serif text-2xl sm:text-3xl tracking-[0.15em] text-white/90 mb-2"
+          <motion.div
+            className="font-serif text-2xl sm:text-3xl tracking-[0.15em] text-white/90 mb-2 font-bold"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
-            MR TRADERS
-          </motion.h1>
+            MR INTERIORS
+          </motion.div>
 
           {/* Tagline */}
           <motion.p

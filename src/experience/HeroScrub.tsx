@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import './experience.css';
@@ -125,13 +126,21 @@ export default function HeroScrub({ onComplete }: { onComplete: () => void }) {
         <div className="dp-vid__scrim" />
         <div className="dp-exp__vignette" />
 
-        <header className="dp-exp__bar" style={{ justifyContent: 'center', paddingTop: '8vh' }}>
+        <header className="dp-exp__bar flex-col items-center" style={{ paddingTop: '5vh' }}>
           <img
             src="/favicon.png"
-            alt="MR Traders"
-            className="h-24 sm:h-32 w-auto object-contain"
+            alt="MR Interiors - Interior Designer Nashik"
+            className="h-20 sm:h-28 w-auto object-contain mb-3"
             style={{ filter: 'drop-shadow(0 2px 12px rgba(0,0,0,0.55))' }}
           />
+          <nav aria-label="Main Navigation" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-accent/80 font-medium">
+            <Link to="/home-interiors" className="hover:text-secondary transition-colors">Home Interiors</Link>
+            <Link to="/modular-kitchens" className="hover:text-secondary transition-colors">Modular Kitchens</Link>
+            <Link to="/wardrobes" className="hover:text-secondary transition-colors">Wardrobes</Link>
+            <Link to="/commercial-interiors" className="hover:text-secondary transition-colors">Commercial</Link>
+            <Link to="/interior-designer-nashik" className="hover:text-secondary transition-colors">Nashik Studio</Link>
+            <Link to="/about" className="hover:text-secondary transition-colors">About Us</Link>
+          </nav>
         </header>
 
         <div className="dp-exp__progress">
@@ -167,7 +176,13 @@ export default function HeroScrub({ onComplete }: { onComplete: () => void }) {
             1000+ homes built.<br /><em>Yours is next.</em>
           </h2>
           <p className="dp-exp__sub">
-            <span className="dp-exp__line">MR Traders, Nashik &mdash; Step inside &rarr;</span>
+            <button
+              type="button"
+              onClick={onComplete}
+              className="dp-exp__line hover:text-secondary cursor-pointer transition-colors"
+            >
+              MR Interiors, Nashik &mdash; Step inside &rarr;
+            </button>
           </p>
         </div>
 

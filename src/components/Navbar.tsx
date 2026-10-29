@@ -47,9 +47,10 @@ export default function Navbar() {
   const navItems = [
     { href: '/', label: 'Home' },
     { href: '/services', label: 'Services' },
+    { href: '/home-interiors', label: 'Home Interiors' },
+    { href: '/modular-kitchens', label: 'Kitchens' },
+    { href: '/interior-designer-nashik', label: 'Nashik Studio' },
     { href: '/about', label: 'About' },
-    { href: '/#projects', label: 'Projects' },
-    { href: '/discover', label: 'Design My Home' },
   ];
 
   return (
